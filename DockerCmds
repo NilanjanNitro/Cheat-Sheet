@@ -1,5 +1,8 @@
 Docker cmd to connect with host n/w
 
+if you docker inspect a container running with --net host, 
+you'll see the JSON representation that you can reuse in the "container create options" for the skill
+
 "NetworkingConfig":
 {
 "EndpointsConfig":{"host":{}}},
