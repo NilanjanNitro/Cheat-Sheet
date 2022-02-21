@@ -1,0 +1,40 @@
+Running Omnio containers on optra edge
+
+docker run --device /dev/ttyUSB0:/dev/ttyUSB0  --net host --rm -it omnioiot/edge launch 
+  --token 0a5bwpvutufn151kmawpdcfajdcnnlxu --id 07329ec2-b47f-4ff3-a9cf-a90377f7d165
+  
+Here is the first in the chain for the Optra move from qa.optra.portal.com to Microsoft IOT Hub directly
+
+DPS: dps-optra-qa.azure-devices-provisioning.net
+ID Scope: 0ne004B1712
+IoTHub connection string:
+HostName=iothub-optra-qa.azure-devices.net;SharedAccessKeyName=omnio;SharedAccessKey=ihGz9ve4KeZ6TvW6iTKlIe1ppUTs3tjCPNDed1mL984=
+
+Upload x509 certs and a TPM endorsement key to your DPS.
+
+1. Pull the certificates off of the device:
+   curl -k https://192.168.1.106/webservices/iot/certificates/edge-device > 808010910300Y_edge
+   curl -k https://192.168.1.106/webservices/iot/tpm/ek > 808010910300Y_edge_ek.b64
+
+2. Upload the certificates to the DPS.
+
+3. Set the scopeId on the device:
+    > settings write ScopeId "0ne004B1712"
+
+issues
+1) https://github.com/hashicorp/terraform-provider-azurerm/issues/10224
+
+2) The edge computer hardware is linux/arm64/v8 that does not show up in the manifest. See the docker command and response.
+
+Execute command:
+root@optra-808010910300Y:~# docker run --device /dev/ttyUSB0:/dev/ttyUSB0 
+  --net host --rm -it omnioiot/edge launch --token 0a5bwpvutufn151kmawpdcfajdcnnlxu --id 07329ec2-b47f-4ff3-a9cf-a90377f7d165
+
+Response:
+Unable to find image 'omnioiot/edge:latest' locally
+latest: Pulling from omnioiot/edge
+docker: no matching manifest for linux/arm64/v8 in the manifest list entries.
+
+3) Note that 9600 baud does not show up as an option.
+
+
