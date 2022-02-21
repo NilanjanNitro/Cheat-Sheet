@@ -1,0 +1,23 @@
+Docker cmd to connect with host n/w
+
+"NetworkingConfig":
+{
+"EndpointsConfig":{"host":{}}},
+"HostConfig":{
+"Devices":[
+{
+"CgroupPermissions":"rwm",
+"PathInContainer":"/dev",
+"PathOnHost":"/dev"
+}],"NetworkMode":"host"}}
+
+{"NetworkMode":"host",
+ "Hostconfig":
+ {"Binds":
+  ["/tmp/.X11-unix:/tmp/.X11-unix","/run/user/1000/gdm/Xauthority:/run/user/0/gdm/Xauthority","/run/user/1000/gdm/Xauthority:/root/.Xauthority"],
+ "PortBindings":
+  {"${exposedUIPort}/tcp":[{"HostIp":"127.0.0.1","HostPort":"${hostUIPort}"}]}}}
+  
+  -----------------------------------------------------------------------------------------------------------------------------------------------------
+  
+  
